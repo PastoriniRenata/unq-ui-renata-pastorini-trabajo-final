@@ -1,4 +1,13 @@
 :root {
- 
+  --bs-body-font-family: "IBM Plex Mono", monospace;
+  --bs-body-bg: #5c94fc;
+  --bs-border-radius: 0;
+  --bs-border-radius-sm: 0;
+  --bs-border-radius-lg: 0;
+  --bs-border-radius-xl: 0;
+  --bs-border-radius-xxl: 0;
 }
 
+.font-pixel {
+  font-family: "Press Start 2P", monospace;
+}
