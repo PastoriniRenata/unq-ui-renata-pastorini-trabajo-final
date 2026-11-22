@@ -11,7 +11,7 @@ export const normalizeWord = (word) => {
 // PRECONDICION: recibo las palabras ya normalizadas
 
 // No vacía: que hayan escrito algo.
-export const isNotEmpty = (word) => word.trim() !== "";
+export const isEmpty = (word) => word.trim() === "";
 
 // Una sola palabra: sin espacios en el medio.
 export const isSingleWord = (word) => !word.includes(" ");
@@ -19,8 +19,12 @@ export const isSingleWord = (word) => !word.includes(" ");
 // Solo letras: sin números, símbolos ni signos.
 export const hasOnlyLetters = (word) => /^[a-zñ]+$/.test(word);
 
-// Mínimo 2 letras.
-export const hasMinLength = (word) => word.trim().length >= 2;
+// Si tiene menos de 2 caracteres, que sean a,e,o,u,y. La i y la d las deja pasar como validas, pero no lo son. Mínimo 2 letras.
+const SINGLE_LETTER_WORDS = ["a", "e", "o", "u", "y"];
+
+export const isValidLength = (word) =>
+  word.length >= 2 || SINGLE_LETTER_WORDS.includes(word);
+
 
 // Encadenamiento: que empiece con la última letra de la palabra anterior. No aplica a la primera palabra.
 export const isChained = (word, previousWord) => {
@@ -31,6 +35,6 @@ export const isChained = (word, previousWord) => {
   return lastLetter === firstLetter;
 };
 
-// No repetida: que no esté ya en la cadena.
-export const notRepeated = (word, previousWords) =>
-  !previousWords.some((w) => w.normalized === word);
+// Repetida: se fija si la palabra dada ya se encuientra entre las palabras de la cadena
+export const repeatedWord = (word, previousWords) =>
+  previousWords.some((w) => w.normalized === word);
