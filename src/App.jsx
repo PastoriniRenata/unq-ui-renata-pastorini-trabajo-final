@@ -5,9 +5,14 @@ import GameSummary from "./components/GameSummary";
 import WordInput from "./components/WordInput";
 import ChainedWords from "./components/ChainedWords";
 import { useRanking } from "./hooks/useRanking";
+import Modal from "./components/Modal";
+import Ranking from "./components/Ranking";
+import Rules from "./components/Rules";
+import { useGuide } from "./hooks/useGuide";
 
 const App = () => {
   const [word, setWord] = useState("");
+  const [isRankingOpen, setIsRankingOpen] = useState(false);
   const inputRef = useRef(null);
   const {
     wordsList,
@@ -24,6 +29,7 @@ const App = () => {
     markScoreSaved,
   } = useGame();
   const { entries, qualifies, addScore } = useRanking();
+  const { isGuideOpen, openGuide, closeGuide } = useGuide();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,6 +47,16 @@ const App = () => {
   const handleSaveScore = (name) => {
     addScore(name, score);
     markScoreSaved();
+  };
+
+  const handleCloseRanking = () => {
+    setIsRankingOpen(false);
+    inputRef.current?.focus();
+  };
+
+  const handleCloseGuide = () => {
+    closeGuide();
+    inputRef.current?.focus();
   };
 
   return (
@@ -61,6 +77,8 @@ const App = () => {
             wordCount={wordCount}
             score={score}
             secondsLeft={secondsLeft}
+            onShowRanking={() => setIsRankingOpen(true)}
+            onShowGuide={openGuide}
           />
 
           <WordInput
@@ -75,6 +93,17 @@ const App = () => {
         </div>
       )}
       <ChainedWords wordsList={wordsList} />
+      {isRankingOpen && (
+        <Modal title="Ranking" onClose={handleCloseRanking}>
+          <Ranking entries={entries} />
+        </Modal>
+      )}
+
+      {isGuideOpen && (
+        <Modal title="Cómo se juega" onClose={handleCloseGuide}>
+          <Rules />
+        </Modal>
+      )}
     </div>
   );
 };
