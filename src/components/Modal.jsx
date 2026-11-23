@@ -6,7 +6,9 @@ const Modal = ({ title, onClose, children }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h2 className="modal-title fs-5">{title}</h2>
-              <button type="button" className="btn-close" aria-label="Cerrar" onClick={onClose} />
+              {onClose && (
+                <button type="button" className="btn-close" aria-label="Cerrar" onClick={onClose} />
+              )}
             </div>
             <div className="modal-body">{children}</div>
           </div>

@@ -63,19 +63,9 @@ const App = () => {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-    <Background />
-    <main className="flex-grow-1 pb-5">
-      <h1 className="font-pixel">Palabras Encadenadas</h1>
-      {isGameOver ? (
-        <GameSummary
-          score={score}
-          wordCount={wordCount}
-          entries={entries}
-          onPlayAgain={handlePlayAgain}
-          canSaveScore={qualifies(score) && !isScoreSaved}
-          onSaveScore={handleSaveScore}
-        />
-      ) : (
+      <Background />
+      <main className="flex-grow-1 pb-5">
+        <h1 className="font-pixel">Palabras Encadenadas</h1>
         <div>
           <MetricsBar
             wordCount={wordCount}
@@ -95,23 +85,33 @@ const App = () => {
           />
           <p>{message}</p>
         </div>
-      )}
-      <ChainedWords wordsList={wordsList} />
-      {isRankingOpen && (
-        <Modal title="Ranking" onClose={handleCloseRanking}>
-          <Ranking entries={entries} />
-        </Modal>
-      )}
+        <ChainedWords wordsList={wordsList} />
+        {isRankingOpen && (
+          <Modal title="Ranking" onClose={handleCloseRanking}>
+            <Ranking entries={entries} />
+          </Modal>
+        )}
 
-      {isGuideOpen && (
-        <Modal title="Cómo se juega" onClose={handleCloseGuide}>
-          <Rules />
-        </Modal>
-      )}
-    </main>
-    <Footer/>
+        {isGuideOpen && (
+          <Modal title="Cómo se juega" onClose={handleCloseGuide}>
+            <Rules />
+          </Modal>
+        )}
+        {isGameOver && (
+          <Modal title="Se acabó el tiempo">
+            <GameSummary
+              score={score}
+              wordCount={wordCount}
+              entries={entries}
+              onPlayAgain={handlePlayAgain}
+              canSaveScore={qualifies(score) && !isScoreSaved}
+              onSaveScore={handleSaveScore}
+            />
+          </Modal>
+        )}
+      </main>
+      <Footer />
     </div>
-
   );
 };
 
