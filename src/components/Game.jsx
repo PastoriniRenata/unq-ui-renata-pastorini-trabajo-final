@@ -70,6 +70,12 @@ const Game = () => {
     inputRef.current?.focus();
   };
 
+  const handleRestart = () => {
+    playAgain();
+    setWord("");
+    inputRef.current?.focus();
+  };
+
   return (
     <div className="d-flex flex-column min-vh-100 bg-opacity-100">
       <Background />
@@ -80,9 +86,11 @@ const Game = () => {
         <MetricsBar
           wordCount={wordCount}
           score={score}
+          bestScore={bestScore}
+          canRestart={wordCount > 0 && !isChecking}
+          onRestart={handleRestart}
           onShowRanking={() => setIsRankingOpen(true)}
           onShowGuide={openGuide}
-          bestScore={bestScore}
         />
         <div className="row g-3 mx-0">
           <div className="col-lg-8">

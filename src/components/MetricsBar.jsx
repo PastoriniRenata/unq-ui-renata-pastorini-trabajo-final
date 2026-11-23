@@ -1,4 +1,12 @@
-const MetricsBar = ({ wordCount, score, bestScore, onShowRanking, onShowGuide }) => {
+const MetricsBar = ({
+  wordCount,
+  score,
+  bestScore,
+  canRestart,
+  onRestart,
+  onShowRanking,
+  onShowGuide,
+}) => {
   return (
     <header className="d-flex flex-wrap align-items-center gap-2 gap-sm-4 px-3 py-2 font-pixel text-white text-outline">
       <div>
@@ -14,6 +22,15 @@ const MetricsBar = ({ wordCount, score, bestScore, onShowRanking, onShowGuide })
       </div>
 
       <div className="ms-auto d-flex gap-2">
+        <button
+          type="button"
+          className="btn btn-warning p-2 fs-5 d-flex align-items-center justify-content-center"
+          aria-label="Reiniciar partida"
+          onClick={onRestart}
+          disabled={!canRestart}
+        >
+          <i className="bi bi-arrow-counterclockwise lh-1" aria-hidden="true" />
+        </button>
         <button
           type="button"
           className="btn btn-warning p-2 fs-5 d-flex align-items-center justify-content-center"
