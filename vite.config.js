@@ -1,7 +1,7 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: "/unq-ui-renata-pastorini-trabajo-final/",
-});
+  base: command === "build" ? "/unq-ui-renata-pastorini-trabajo-final/" : "/",
+}));
