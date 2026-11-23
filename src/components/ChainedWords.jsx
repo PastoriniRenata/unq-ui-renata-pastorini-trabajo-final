@@ -8,7 +8,7 @@ const ChainedWords = ({ wordsList }) => {
       </div>
       <div className="card-body">
         {count === 0 ? (
-          <p className="text-white text-center my-4">Tu cadena de palabras aparece acá</p>
+          <p className="text-white text-center my-4">Tu cadena de palabras aparecerá acá</p>
         ) : (
           <ol className="list-unstyled mb-0">
             {wordsList.toReversed().map((p, index) => (
