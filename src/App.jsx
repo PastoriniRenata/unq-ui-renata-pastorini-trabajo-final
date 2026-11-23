@@ -36,6 +36,7 @@ const App = () => {
   const { entries, qualifies, addScore } = useRanking();
   const { isGuideOpen, openGuide, closeGuide } = useGuide();
   const bestScore = entries[0]?.score ?? 0;
+  const rankPosition = entries.filter((entry) => entry.score >= score).length + 1;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -98,11 +99,6 @@ const App = () => {
             <Ranking entries={entries} />
           </aside>
         </div>
-        {isRankingOpen && (
-          <Modal title="Ranking" onClose={handleCloseRanking}>
-            <Ranking entries={entries} />
-          </Modal>
-        )}
 
         {isGuideOpen && (
           <Modal title="Cómo se juega" onClose={handleCloseGuide}>
@@ -110,15 +106,21 @@ const App = () => {
           </Modal>
         )}
         {isGameOver && (
-          <Modal title="Se acabó el tiempo">
+          <Modal title="Fin de la partida">
             <GameSummary
               score={score}
               wordCount={wordCount}
-              entries={entries}
-              onPlayAgain={handlePlayAgain}
+              rankPosition={rankPosition}
               canSaveScore={qualifies(score) && !isScoreSaved}
               onSaveScore={handleSaveScore}
+              onPlayAgain={handlePlayAgain}
+              onShowRanking={() => setIsRankingOpen(true)}
             />
+          </Modal>
+        )}
+        {isRankingOpen && (
+          <Modal title="Ranking" onClose={handleCloseRanking}>
+            <Ranking entries={entries} />
           </Modal>
         )}
       </main>

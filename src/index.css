@@ -196,7 +196,7 @@
   width: 100%;
 }
 
-/* Texto blanco con contorno negro, para leerse sobre el cielo */
+/* Texto blanco con contorno negro */
 .text-outline {
   text-shadow:
     calc(var(--pixel) * -0.5) 0 var(--outline),
@@ -204,3 +204,4 @@
     0 calc(var(--pixel) * -0.5) var(--outline),
     0 calc(var(--pixel) * 0.5) var(--outline);
 }
+
