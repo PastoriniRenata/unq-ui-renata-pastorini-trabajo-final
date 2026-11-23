@@ -9,6 +9,8 @@ import Modal from "./components/Modal";
 import Ranking from "./components/Ranking";
 import Rules from "./components/Rules";
 import { useGuide } from "./hooks/useGuide";
+import Background from "./components/Background";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [word, setWord] = useState("");
@@ -60,7 +62,9 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
+    <Background />
+    <main className="flex-grow-1 pb-5">
       <h1 className="font-pixel">Palabras Encadenadas</h1>
       {isGameOver ? (
         <GameSummary
@@ -104,7 +108,10 @@ const App = () => {
           <Rules />
         </Modal>
       )}
+    </main>
+    <Footer/>
     </div>
+
   );
 };
 

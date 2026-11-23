@@ -6,8 +6,113 @@
   --bs-border-radius-lg: 0;
   --bs-border-radius-xl: 0;
   --bs-border-radius-xxl: 0;
+
+  --cloud-color: #ffffff;
+  --plant-color: #80d010;
+  --plant-border: #00a800;
+  --floor-color: #e45c10;
+  --floor-lines: #7c2c00;
+  --pixel: clamp(3px, 0.35vw, 6px);
+  --floor-height: calc(var(--pixel) * 12);
 }
 
 .font-pixel {
   font-family: "Press Start 2P", monospace;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floor {
+  position: relative;
+  height: var(--floor-height);
+  background-color: var(--floor-color);
+  background-image:
+    linear-gradient(var(--floor-lines) var(--pixel), transparent var(--pixel)),
+    linear-gradient(
+      90deg,
+      var(--floor-lines) var(--pixel),
+      transparent var(--pixel)
+    );
+  background-size: calc(var(--pixel) * 12) calc(var(--pixel) * 6);
+}
+
+.cloud {
+  position: absolute;
+  width: calc(var(--pixel) * 24);
+  height: calc(var(--pixel) * 8);
+  background-color: var(--cloud-color);
+}
+
+.cloud::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--pixel) * 6);
+  bottom: 100%;
+  width: calc(var(--pixel) * 12);
+  height: calc(var(--pixel) * 4);
+  background-color: var(--cloud-color);
+}
+
+.cloud-left {
+  top: 15%;
+  left: 8%;
+}
+.cloud-center {
+  top: 8%;
+  left: 45%;
+  transform: scale(0.7);
+}
+.cloud-right {
+  top: 28%;
+  left: 72%;
+}
+
+.plant {
+  position: absolute;
+  bottom: 100%;
+  width: calc(var(--pixel) * 30);
+  height: calc(var(--pixel) * 8);
+  background-color: var(--plant-color);
+  border: var(--pixel) solid var(--plant-border);
+  border-bottom: 0;
+  border-radius: calc(var(--pixel) * 4) calc(var(--pixel) * 4) 0 0;
+}
+
+.plant::before,
+.plant::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  width: calc(var(--pixel) * 12);
+  height: calc(var(--pixel) * 6);
+  background-color: var(--plant-color);
+  border: var(--pixel) solid var(--plant-border);
+  border-bottom: 0;
+  border-radius: calc(var(--pixel) * 6) calc(var(--pixel) * 6) 0 0;
+}
+
+.plant::before {
+  left: calc(var(--pixel) * 2);
+}
+.plant::after {
+  right: calc(var(--pixel) * 2);
+}
+
+.plant-left {
+  left: 6%;
+}
+
+.plant-right {
+  left: 70%;
+  width: calc(var(--pixel) * 20);
+}
+
+.plant-right::after {
+  display: none;
 }
