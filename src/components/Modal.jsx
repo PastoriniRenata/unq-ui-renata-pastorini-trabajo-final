@@ -1,4 +1,17 @@
+import { useEffect } from "react";
+
 const Modal = ({ title, onClose, children }) => {
+  useEffect(() => {
+    if (!onClose) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   return (
     <>
       <div className="modal d-block" role="dialog" aria-modal="true" onClick={onClose}>
