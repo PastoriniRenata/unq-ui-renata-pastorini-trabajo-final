@@ -13,6 +13,7 @@ import { useTimer } from "./useTimer";
 
 const CHAIN_STORAGE_KEY = "palabras-encadenadas";
 const GAME_OVER_STORAGE_KEY = "palabras-encadenadas-terminada";
+const SCORE_SAVED_STORAGE_KEY = "palabras-encadenadas-guardado";
 
 const loadChain = () => {
   try {
@@ -31,11 +32,20 @@ const loadGameOver = () => {
   }
 };
 
+const loadScoreSaved = () => {
+  try {
+    return sessionStorage.getItem(SCORE_SAVED_STORAGE_KEY) === "true";
+  } catch {
+    return false;
+  }
+};
+
 export const useGame = () => {
   const [wordsList, setWordsList] = useState(loadChain);
   const [message, setMessage] = useState("");
   const [isChecking, setIsChecking] = useState(false);
   const [isGameOver, setIsGameOver] = useState(loadGameOver);
+  const [isScoreSaved, setIsScoreSaved] = useState(loadScoreSaved);
   const timer = useTimer(() => {
     setIsGameOver(true);
     setMessage("");
@@ -61,6 +71,14 @@ export const useGame = () => {
       // si no se puede guardar, el juego sigue igual
     }
   }, [isGameOver]);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(SCORE_SAVED_STORAGE_KEY, String(isScoreSaved));
+    } catch {
+      // si no se puede guardar, el juego sigue igual
+    }
+  }, [isScoreSaved]);
 
   const submitWord = async (word) => {
     if (isChecking || isGameOver) return false;
@@ -132,6 +150,7 @@ export const useGame = () => {
   const playAgain = () => {
     setWordsList([]);
     setIsGameOver(false);
+    setIsScoreSaved(false);
     setMessage("");
     timer.reset();
   };
@@ -147,5 +166,7 @@ export const useGame = () => {
     secondsLeft: timer.secondsLeft,
     isGameOver,
     playAgain,
+    isScoreSaved,
+    markScoreSaved: () => setIsScoreSaved(true),
   };
 };

@@ -4,6 +4,7 @@ import MetricsBar from "./components/MetricsBar";
 import GameSummary from "./components/GameSummary";
 import WordInput from "./components/WordInput";
 import ChainedWords from "./components/ChainedWords";
+import { useRanking } from "./hooks/useRanking";
 
 const App = () => {
   const [word, setWord] = useState("");
@@ -19,7 +20,10 @@ const App = () => {
     secondsLeft,
     isGameOver,
     playAgain,
+    isScoreSaved,
+    markScoreSaved,
   } = useGame();
+  const { entries, qualifies, addScore } = useRanking();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,6 +38,11 @@ const App = () => {
     setWord("");
   };
 
+  const handleSaveScore = (name) => {
+    addScore(name, score);
+    markScoreSaved();
+  };
+
   return (
     <div>
       <h1 className="font-pixel">Palabras Encadenadas</h1>
@@ -41,7 +50,10 @@ const App = () => {
         <GameSummary
           score={score}
           wordCount={wordCount}
+          entries={entries}
           onPlayAgain={handlePlayAgain}
+          canSaveScore={qualifies(score) && !isScoreSaved}
+          onSaveScore={handleSaveScore}
         />
       ) : (
         <div>
