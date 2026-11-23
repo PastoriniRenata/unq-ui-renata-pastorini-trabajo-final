@@ -115,7 +115,7 @@ export const useGame = () => {
     }
 
     if (!isValidLength(normalize)) {
-      showError("Esa letra sola no es una palabra");
+      showError("Se aceptan palabras de 2 letras o más");
       return false;
     }
 

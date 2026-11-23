@@ -128,13 +128,13 @@
 }
 
 .question-block {
-  width: calc(var(--pixel) * 16);
-  height: calc(var(--pixel) * 16);
-  font-size: calc(var(--pixel) * 6);
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.5rem;
   color: var(--brick-shadow);
   background-color: var(--block-color);
-  border: var(--pixel) solid var(--block-shadow);
-  box-shadow: inset var(--pixel) var(--pixel) 0 var(--block-light);
+  border: 3px solid var(--block-shadow);
+  box-shadow: inset 3px 3px 0 var(--block-light);
 }
 
 /* Para que la barra de tiempo se vaya achicando */
