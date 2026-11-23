@@ -175,5 +175,7 @@ export const useGame = () => {
     isScoreSaved,
     markScoreSaved: () => setIsScoreSaved(true),
     isTimerRunning: timer.isRunning,
+    pauseTimer: timer.pause,
+    resumeTimer: timer.resume,
   };
 };

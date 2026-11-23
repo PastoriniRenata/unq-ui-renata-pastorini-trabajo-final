@@ -42,9 +42,7 @@ const Rules = ({ onStart }) => {
         <br />
         <strong>Valen:</strong> palabras de 2 o más letras
       </div>
-
-      <p className="small text-danger mb-0">El reloj no se detiene si abrís esta guía en plena partida</p>
-
+      <p className="small mb-0">El reloj se pausa mientras esta guía está abierta</p>
       <div className="d-flex justify-content-end border-top pt-3">
         <button type="button" className="btn btn-success font-pixel" onClick={onStart}>
           ¡A JUGAR!

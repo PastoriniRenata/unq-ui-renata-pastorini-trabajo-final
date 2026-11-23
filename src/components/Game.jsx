@@ -32,6 +32,8 @@ const Game = () => {
     isScoreSaved,
     markScoreSaved,
     isTimerRunning,
+    pauseTimer,
+    resumeTimer
   } = useGame();
   const { entries, qualifies, addScore } = useRanking();
   const { isGuideOpen, openGuide, closeGuide } = useGuide();
@@ -60,13 +62,27 @@ const Game = () => {
     setIsRankingOpen(true);
   };
 
-  const handleCloseRanking = () => {
-    setIsRankingOpen(false);
-    inputRef.current?.focus();
+  const handleOpenGuide = () => {
+    if (isChecking) return;
+    pauseTimer();
+    openGuide();
   };
 
   const handleCloseGuide = () => {
     closeGuide();
+    resumeTimer();
+    inputRef.current?.focus();
+  };
+
+  const handleOpenRanking = () => {
+    if (isChecking) return;
+    pauseTimer();
+    setIsRankingOpen(true);
+  };
+
+  const handleCloseRanking = () => {
+    setIsRankingOpen(false);
+    resumeTimer();
     inputRef.current?.focus();
   };
 
@@ -89,8 +105,8 @@ const Game = () => {
           bestScore={bestScore}
           canRestart={wordCount > 0 && !isChecking}
           onRestart={handleRestart}
-          onShowRanking={() => setIsRankingOpen(true)}
-          onShowGuide={openGuide}
+          onShowRanking={handleOpenRanking}
+          onShowGuide={handleOpenGuide}
         />
         <div className="row g-3 mx-0">
           <div className="col-lg-8">
@@ -126,7 +142,7 @@ const Game = () => {
               canSaveScore={qualifies(score) && !isScoreSaved}
               onSaveScore={handleSaveScore}
               onPlayAgain={handlePlayAgain}
-              onShowRanking={() => setIsRankingOpen(true)}
+              onShowRanking={handleOpenRanking}
             />
           </Modal>
         )}

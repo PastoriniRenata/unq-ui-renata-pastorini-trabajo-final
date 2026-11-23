@@ -43,6 +43,7 @@ export const useTimer = (onExpire) => {
       if (msLeft <= 0) {
         setSecondsLeft(0);
         setIsRunning(false);
+        wasRunningRef.current = false;
         saveDeadline(0);
         onExpireRef.current();
       } else {
