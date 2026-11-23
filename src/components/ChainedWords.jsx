@@ -14,16 +14,20 @@ const ChainedWords = ({ wordsList }) => {
             {wordsList.toReversed().map((p, index) => (
               <li key={p.normalized}>
                 {index > 0 && (
-                  <div className="row gx-3">
-                    <div className="col offset-2 offset-sm-1 text-white small ps-4">▲</div>
+                  <div className="d-flex gap-2">
+                    <span
+                      className="chain-number flex-shrink-0 font-pixel fs-5"
+                      aria-hidden="true"
+                    />
+                    <span className="text-white small ps-4">▲</span>
                   </div>
                 )}
-                <div className="row g-3 align-items-center">
-                  <span className="col-2 col-sm-1 text-end font-pixel fs-5 text-white text-outline">
-                    {String(count - index).padStart(2, "0")}
+                <div className="d-flex gap-2 align-items-center">
+                  <span className="chain-number flex-shrink-0 text-end font-pixel fs-5 text-white text-outline">
+                    {String(count - index).padStart(3, "0")}
                   </span>
                   <div
-                    className={`col brick font-pixel text-white d-flex justify-content-between align-items-center gap-2 px-3 py-2 ${index === 0 ? "border-warning" : ""}`}
+                    className={`brick flex-grow-1 font-pixel text-white d-flex justify-content-between align-items-center gap-2 px-3 py-2 ${index === 0 ? "border-warning" : ""}`}
                   >
                     <span className="fs-5 text-break">{p.text}</span>
                     <span className="small flex-shrink-0">+{p.normalized.length}</span>
