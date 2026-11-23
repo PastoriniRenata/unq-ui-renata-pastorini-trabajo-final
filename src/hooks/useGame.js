@@ -6,7 +6,7 @@ import {
   isChained,
   isEmpty,
   isSingleWord,
-  repeatedWord,
+  isRepeatedWord,
 } from "../Validations";
 import { validateWord } from "../service/api";
 import { useTimer } from "./useTimer";
@@ -57,7 +57,7 @@ export const useGame = () => {
     clearMessage();
   });
 
-  const score = wordsList.reduce((total, p) => total + p.normalized.length, 0);
+  const score = wordsList.reduce((total, chainWord) => total + chainWord.normalized.length, 0);
   const wordCount = wordsList.length;
 
   const nextLetter = wordsList.at(-1)?.normalized.at(-1);
@@ -124,7 +124,7 @@ export const useGame = () => {
       return false;
     }
 
-    if (repeatedWord(normalizedWord, wordsList)) {
+    if (isRepeatedWord(normalizedWord, wordsList)) {
       showError("Esa palabra ya la usaste");
       return false;
     }

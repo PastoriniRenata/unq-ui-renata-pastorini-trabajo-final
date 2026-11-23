@@ -33,7 +33,7 @@ const Game = () => {
     markScoreSaved,
     isTimerRunning,
     pauseTimer,
-    resumeTimer
+    resumeTimer,
   } = useGame();
   const { entries, qualifies, addScore } = useRanking();
   const { isGuideOpen, openGuide, closeGuide } = useGuide();

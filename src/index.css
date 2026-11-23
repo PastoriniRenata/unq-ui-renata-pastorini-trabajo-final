@@ -137,6 +137,12 @@
   box-shadow: inset 3px 3px 0 var(--block-light);
 }
 
+.question-block-sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
 /* Para que la barra de tiempo se vaya achicando */
 .progress-bar {
   transition: width 1s linear;
@@ -203,12 +209,6 @@
     calc(var(--pixel) * 0.5) 0 var(--outline),
     0 calc(var(--pixel) * -0.5) var(--outline),
     0 calc(var(--pixel) * 0.5) var(--outline);
-}
-
-.question-block-sm {
-  width: 2rem;
-  height: 2rem;
-  font-size: 1rem;
 }
 
 .chain-number {

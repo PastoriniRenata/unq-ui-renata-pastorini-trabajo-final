@@ -11,8 +11,8 @@ const ChainedWords = ({ wordsList }) => {
           <p className="text-white text-center my-4">Tu cadena de palabras aparecerá acá</p>
         ) : (
           <ol className="list-unstyled mb-0">
-            {wordsList.toReversed().map((p, index) => (
-              <li key={p.normalized}>
+            {wordsList.toReversed().map((chainWord, index) => (
+              <li key={chainWord.normalized}>
                 {index > 0 && (
                   <div className="d-flex gap-2">
                     <span
@@ -29,8 +29,8 @@ const ChainedWords = ({ wordsList }) => {
                   <div
                     className={`brick flex-grow-1 font-pixel text-white d-flex justify-content-between align-items-center gap-2 px-3 py-2 ${index === 0 ? "border-warning" : ""}`}
                   >
-                    <span className="fs-5 text-break">{p.text}</span>
-                    <span className="small flex-shrink-0">+{p.normalized.length}</span>
+                    <span className="fs-5 text-break">{chainWord.text}</span>
+                    <span className="small flex-shrink-0">+{chainWord.normalized.length}</span>
                   </div>
                 </div>
               </li>
