@@ -38,7 +38,7 @@ export const useGame = () => {
   const [isGameOver, setIsGameOver] = useState(loadGameOver);
   const timer = useTimer(() => {
     setIsGameOver(true);
-    setMessage("Se acabó el tiempo");
+    setMessage("");
   });
 
   const score = wordsList.reduce((total, p) => total + p.normalized.length, 0);
@@ -70,9 +70,7 @@ export const useGame = () => {
 
     if (isEmpty(normalize)) {
       setMessage(
-        wordCount === 0
-          ? "Escribí una palabra para iniciar la partida"
-          : "Debes ingresar una palabra",
+        `Escribí una palabra${wordCount === 0 ? " para iniciar la partida" : ""}`,
       );
       return false;
     }
@@ -111,7 +109,7 @@ export const useGame = () => {
         if (res.data.exists) {
           setWordsList((prev) => [
             ...prev,
-            { text: word, normalized: normalize },
+            { text: word.trim(), normalized: normalize },
           ]);
           setMessage(`¡Bien! +${normalize.length}`);
           timer.restart();

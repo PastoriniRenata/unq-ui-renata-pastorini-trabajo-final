@@ -19,7 +19,7 @@ export const isSingleWord = (word) => !word.includes(" ");
 // Solo letras: sin números, símbolos ni signos.
 export const hasOnlyLetters = (word) => /^[a-zñ]+$/.test(word);
 
-// Si tiene menos de 2 caracteres, que sean a,e,o,u,y. La i y la d las deja pasar como validas, pero no lo son. Mínimo 2 letras.
+// Palabras de una letra: solo a, e, o, u, y. La API también acepta "i" y "d", pero no son palabras.
 const SINGLE_LETTER_WORDS = ["a", "e", "o", "u", "y"];
 
 export const isValidLength = (word) =>
@@ -35,6 +35,6 @@ export const isChained = (word, previousWord) => {
   return lastLetter === firstLetter;
 };
 
-// Repetida: se fija si la palabra dada ya se encuientra entre las palabras de la cadena
+// Repetida: se fija si la palabra dada ya se encuentra entre las palabras de la cadena
 export const repeatedWord = (word, previousWords) =>
   previousWords.some((w) => w.normalized === word);
