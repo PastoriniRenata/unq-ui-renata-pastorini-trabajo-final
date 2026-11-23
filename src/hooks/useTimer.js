@@ -73,11 +73,6 @@ export const useTimer = (onExpire) => {
     setIsRunning(true);
   };
 
-  const stop = () => {
-    setIsRunning(false);
-    saveDeadline(0);
-  };
-
   const reset = () => {
     setIsRunning(false);
     setSecondsLeft(TURN_SECONDS);
@@ -85,5 +80,5 @@ export const useTimer = (onExpire) => {
     saveDeadline(0);
   };
 
-  return { secondsLeft, isRunning, restart, pause, resume, stop, reset };
+  return { secondsLeft, isRunning, restart, pause, resume, reset };
 };

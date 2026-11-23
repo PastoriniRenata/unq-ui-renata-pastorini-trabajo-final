@@ -19,7 +19,7 @@ export const isSingleWord = (word) => !word.includes(" ");
 // Solo letras: sin números, símbolos ni signos.
 export const hasOnlyLetters = (word) => /^[a-zñ]+$/.test(word);
 
-// Palabras de minimo 2 letras
+// Palabras de mínimo 2 letras
 export const isValidLength = (word) => word.length >= 2;
 
 // Encadenamiento: que empiece con la última letra de la palabra anterior. No aplica a la primera palabra.

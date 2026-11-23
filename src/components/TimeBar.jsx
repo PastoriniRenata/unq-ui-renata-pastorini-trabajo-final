@@ -1,10 +1,7 @@
 import { TURN_SECONDS } from "../hooks/useTimer";
 
-const STEPS = 15;
-
 const TimeBar = ({ secondsLeft, isRunning }) => {
-  const target = isRunning && secondsLeft === 1 ? 0 : secondsLeft;
-  const step = Math.max(0, Math.ceil((target / TURN_SECONDS) * STEPS));
+  const step = Math.max(0, isRunning && secondsLeft === 1 ? 0 : secondsLeft);
   const color =
     secondsLeft <= 3 ? "text-bg-danger" : secondsLeft <= 7 ? "text-bg-warning" : "text-bg-success";
 

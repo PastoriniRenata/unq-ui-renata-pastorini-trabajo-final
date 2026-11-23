@@ -97,59 +97,57 @@ export const useGame = () => {
     if (isChecking || isGameOver) return false;
 
     clearMessage();
-    const normalize = normalizeWord(word);
+    const normalizedWord = normalizeWord(word);
 
-    if (isEmpty(normalize)) {
+    if (isEmpty(normalizedWord)) {
       showError(`Escribí una palabra${wordCount === 0 ? " para iniciar la partida" : ""}`);
       return false;
     }
 
-    if (!isSingleWord(normalize)) {
+    if (!isSingleWord(normalizedWord)) {
       showError("Una sola palabra por vez");
       return false;
     }
 
-    if (!hasOnlyLetters(normalize)) {
+    if (!hasOnlyLetters(normalizedWord)) {
       showError("Se aceptan solo letras");
       return false;
     }
 
-    if (!isValidLength(normalize)) {
+    if (!isValidLength(normalizedWord)) {
       showError("Se aceptan palabras de 2 letras o más");
       return false;
     }
 
-    if (!isChained(normalize, wordsList.at(-1)?.normalized)) {
+    if (!isChained(normalizedWord, wordsList.at(-1)?.normalized)) {
       showError(`La palabra debe iniciar con "${nextLetter}"`);
       return false;
     }
 
-    if (repeatedWord(normalize, wordsList)) {
+    if (repeatedWord(normalizedWord, wordsList)) {
       showError("Esa palabra ya la usaste");
       return false;
     }
+
     showInfo("Verificando tu palabra");
     setIsChecking(true);
-
     timer.pause();
 
-    return validateWord(normalize)
+    return validateWord(normalizedWord)
       .then((res) => {
         if (res.data.exists) {
-          setWordsList((prev) => [...prev, { text: word.trim(), normalized: normalize }]);
-          showSuccess(`¡Bien! +${normalize.length}`);
+          setWordsList((prev) => [...prev, { text: word.trim(), normalized: normalizedWord }]);
+          showSuccess(`¡Bien! +${normalizedWord.length}`);
           timer.restart();
         } else {
           showError("No encontramos esa palabra");
           timer.resume();
         }
-
         return true;
       })
       .catch(() => {
         showError("Algo salió mal. Probá de nuevo");
         timer.resume();
-
         return false;
       })
       .finally(() => setIsChecking(false));
