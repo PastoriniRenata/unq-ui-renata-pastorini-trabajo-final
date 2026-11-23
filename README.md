@@ -72,7 +72,7 @@ La estética está inspirada en los juegos de plataformas de 8 bits (cielo, nube
 - **Verificación con la API:** mientras se consulta si la palabra existe, el reloj se pausa y el input queda bloqueado, para que la demora de la red no le saque tiempo al jugador. Si la API no responde en 5 segundos, se muestra un error y se puede volver a intentar.
 - **Palabras en la cadena:** se muestran como se escribieron (con mayúsculas y tildes); para comparar, encadenar y puntuar se usa la versión sin tildes y en minúsculas.
 - **Guía:** se abre sola la primera vez y después con el botón "?". El reloj no se detiene mientras está abierta.
-- **Ranking:** guarda los 10 mejores puntajes en el navegador (`localStorage`). El nombre es libre, de hasta 15 caracteres. Si no se escribe un nombre y se toca «Jugar de nuevo», el puntaje se guarda igual como Player001, Player002, etc.
+- **Ranking:** guarda los 10 mejores puntajes en el navegador (`localStorage`). El nombre es libre, de hasta 15 caracteres. Si no se escribe un nombre y se toca "Jugar de nuevo", el puntaje se guarda igual como Player001, Player002, etc.
 - **Recargar la página:** la partida en curso se guarda en `sessionStorage`, así que sobrevive a una recarga (el reloj sigue desde donde estaba). Al cerrar la pestaña, la partida se pierde; el ranking queda guardado.
 
 ### Sobre la API

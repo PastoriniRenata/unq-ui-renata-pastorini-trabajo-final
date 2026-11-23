@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 const RANKING_STORAGE_KEY = "palabras-encadenadas-ranking";
+const PLAYER_COUNT_STORAGE_KEY = "palabras-encadenadas-jugadores";
 const MAX_ENTRIES = 10;
 
 const loadRanking = () => {
@@ -10,6 +11,22 @@ const loadRanking = () => {
   } catch {
     return [];
   }
+};
+
+const nextPlayerName = () => {
+  let count = 0;
+  try {
+    count = Number(localStorage.getItem(PLAYER_COUNT_STORAGE_KEY)) || 0;
+  } catch {
+    // si no se puede leer, arranca de 0
+  }
+  count += 1;
+  try {
+    localStorage.setItem(PLAYER_COUNT_STORAGE_KEY, String(count));
+  } catch {
+    // si no se puede guardar, el juego sigue igual
+  }
+  return `Player${String(count).padStart(3, "0")}`;
 };
 
 export const useRanking = () => {
@@ -28,7 +45,7 @@ export const useRanking = () => {
     (entries.length < MAX_ENTRIES || score > entries.at(-1).score);
 
   const addScore = (name, score) => {
-    const newEntry = { name: name.trim(), score, date: Date.now() };
+    const newEntry = { name: name.trim() || nextPlayerName(), score, date: Date.now() };
     setEntries((prev) =>
       [...prev, newEntry]
         .sort((a, b) => b.score - a.score || a.date - b.date)

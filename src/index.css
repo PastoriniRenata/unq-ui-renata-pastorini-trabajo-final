@@ -205,4 +205,8 @@
     0 calc(var(--pixel) * 0.5) var(--outline);
 }
 
-
+.question-block-sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+}
