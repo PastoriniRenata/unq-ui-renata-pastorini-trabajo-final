@@ -3,6 +3,8 @@
 Trabajo Final Integrador de **Interfaces de Usuario** - UNQ - 2° cuatrimestre 2026\
 Alumna: Renata Pastorini
 
+**Jugalo online:** https://pastorinirenata.github.io/unq-ui-renata-pastorini-trabajo-final/
+
 Juego web de palabras encadenadas hecho con React: cada palabra tiene que empezar con la última letra de la anterior, existir en el diccionario y no estar repetida. Hay 15 segundos por turno y cada letra suma un punto.
 
 ## Tecnologías
