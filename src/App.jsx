@@ -92,7 +92,7 @@ const App = () => {
             <ChainedWords wordsList={wordsList} />
           </div>
 
-          <aside className="col-lg-3 ms-auto">
+          <aside className="col-lg-3 ms-auto d-none d-lg-block">
             <Ranking entries={entries} />
           </aside>
         </div>
