@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <title>Palabras Encadenadas</title>
+  <rect x="0" y="0" width="32" height="32" fill="#000"/>
+  <rect x="1" y="1" width="30" height="30" fill="#F8B800"/>
+  <path d="M1 1h30v2H1zM1 3h2v28H1z" fill="#FCE0A0"/>
+  <path d="M29 3h2v28h-2zM3 29h26v2H3z" fill="#A05000"/>
+  <path d="M4 4h2v2H4zM26 4h2v2h-2zM4 26h2v2H4zM26 26h2v2h-2z" fill="#7C2C00"/>
+  <path d="M6 10h2v2h-2zM8 10h2v2h-2zM10 10h2v2h-2zM12 10h2v2h-2zM6 12h2v2h-2zM14 12h2v2h-2zM6 14h2v2h-2zM14 14h2v2h-2zM6 16h2v2h-2zM8 16h2v2h-2zM10 16h2v2h-2zM12 16h2v2h-2zM6 18h2v2h-2zM6 20h2v2h-2zM6 22h2v2h-2zM18 10h2v2h-2zM20 10h2v2h-2zM22 10h2v2h-2zM24 10h2v2h-2zM26 10h2v2h-2zM18 12h2v2h-2zM18 14h2v2h-2zM18 16h2v2h-2zM20 16h2v2h-2zM22 16h2v2h-2zM24 16h2v2h-2zM18 18h2v2h-2zM18 20h2v2h-2zM18 22h2v2h-2zM20 22h2v2h-2zM22 22h2v2h-2zM24 22h2v2h-2zM26 22h2v2h-2z" fill="#A05000"/>
+  <path d="M5 9h2v2h-2zM7 9h2v2h-2zM9 9h2v2h-2zM11 9h2v2h-2zM5 11h2v2h-2zM13 11h2v2h-2zM5 13h2v2h-2zM13 13h2v2h-2zM5 15h2v2h-2zM7 15h2v2h-2zM9 15h2v2h-2zM11 15h2v2h-2zM5 17h2v2h-2zM5 19h2v2h-2zM5 21h2v2h-2zM17 9h2v2h-2zM19 9h2v2h-2zM21 9h2v2h-2zM23 9h2v2h-2zM25 9h2v2h-2zM17 11h2v2h-2zM17 13h2v2h-2zM17 15h2v2h-2zM19 15h2v2h-2zM21 15h2v2h-2zM23 15h2v2h-2zM17 17h2v2h-2zM17 19h2v2h-2zM17 21h2v2h-2zM19 21h2v2h-2zM21 21h2v2h-2zM23 21h2v2h-2zM25 21h2v2h-2z" fill="#7C2C00"/>
+</svg>
