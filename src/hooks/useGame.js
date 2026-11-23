@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   normalizeWord,
   isValidLength,
@@ -9,19 +9,62 @@ import {
   repeatedWord,
 } from "../Validations";
 import { validateWord } from "../service/api";
+import { useTimer } from "./useTimer";
+
+const CHAIN_STORAGE_KEY = "palabras-encadenadas";
+const GAME_OVER_STORAGE_KEY = "palabras-encadenadas-terminada";
+
+const loadChain = () => {
+  try {
+    const saved = sessionStorage.getItem(CHAIN_STORAGE_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+};
+
+const loadGameOver = () => {
+  try {
+    return sessionStorage.getItem(GAME_OVER_STORAGE_KEY) === "true";
+  } catch {
+    return false;
+  }
+};
 
 export const useGame = () => {
-  const [wordsList, setWordsList] = useState([]);
+  const [wordsList, setWordsList] = useState(loadChain);
   const [message, setMessage] = useState("");
   const [isChecking, setIsChecking] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(loadGameOver);
+  const timer = useTimer(() => {
+    setIsGameOver(true);
+    setMessage("Se acabó el tiempo");
+  });
 
   const score = wordsList.reduce((total, p) => total + p.normalized.length, 0);
   const wordCount = wordsList.length;
 
   const nextLetter = wordsList.at(-1)?.normalized.at(-1);
 
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(CHAIN_STORAGE_KEY, JSON.stringify(wordsList));
+    } catch {
+      // si no se puede guardar, el juego sigue igual
+    }
+  }, [wordsList]);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(GAME_OVER_STORAGE_KEY, String(isGameOver));
+    } catch {
+      // si no se puede guardar, el juego sigue igual
+    }
+  }, [isGameOver]);
+
   const submitWord = async (word) => {
-    if (isChecking) return false;
+    if (isChecking || isGameOver) return false;
+
     setMessage("");
     const normalize = normalizeWord(word);
 
@@ -50,9 +93,7 @@ export const useGame = () => {
     }
 
     if (!isChained(normalize, wordsList.at(-1)?.normalized)) {
-      setMessage(
-        `La palabra debe iniciar con "${nextLetter}"`,
-      );
+      setMessage(`La palabra debe iniciar con "${nextLetter}"`);
       return false;
     }
 
@@ -63,6 +104,8 @@ export const useGame = () => {
     setMessage("Verificando tu palabra");
     setIsChecking(true);
 
+    timer.pause();
+
     return validateWord(normalize)
       .then((res) => {
         if (res.data.exists) {
@@ -71,16 +114,28 @@ export const useGame = () => {
             { text: word, normalized: normalize },
           ]);
           setMessage(`¡Bien! +${normalize.length}`);
+          timer.restart();
         } else {
           setMessage("No encontramos esa palabra");
+          timer.resume();
         }
+
         return true;
       })
       .catch(() => {
         setMessage("Algo salió mal. Probá de nuevo");
+        timer.resume();
+
         return false;
       })
       .finally(() => setIsChecking(false));
+  };
+
+  const playAgain = () => {
+    setWordsList([]);
+    setIsGameOver(false);
+    setMessage("");
+    timer.reset();
   };
 
   return {
@@ -91,5 +146,8 @@ export const useGame = () => {
     wordCount,
     nextLetter,
     submitWord,
+    secondsLeft: timer.secondsLeft,
+    isGameOver,
+    playAgain,
   };
 };
