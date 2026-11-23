@@ -14,6 +14,14 @@
   --floor-lines: #7c2c00;
   --pixel: clamp(3px, 0.35vw, 6px);
   --floor-height: calc(var(--pixel) * 12);
+
+  --brick-color: #c84c0c;
+  --brick-shadow: #7c2c00;
+  --brick-light: #fcbcb0;
+
+  --block-color: #f8b800;
+  --block-shadow: #a05000;
+  --block-light: #fce0a0;
 }
 
 .font-pixel {
@@ -34,11 +42,7 @@
   background-color: var(--floor-color);
   background-image:
     linear-gradient(var(--floor-lines) var(--pixel), transparent var(--pixel)),
-    linear-gradient(
-      90deg,
-      var(--floor-lines) var(--pixel),
-      transparent var(--pixel)
-    );
+    linear-gradient(90deg, var(--floor-lines) var(--pixel), transparent var(--pixel));
   background-size: calc(var(--pixel) * 12) calc(var(--pixel) * 6);
 }
 
@@ -116,3 +120,50 @@
 .plant-right::after {
   display: none;
 }
+
+.brick {
+  background-color: var(--brick-color);
+  border: var(--pixel) solid var(--brick-shadow);
+  box-shadow: inset var(--pixel) var(--pixel) 0 var(--brick-light);
+}
+
+.question-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: calc(var(--pixel) * 16);
+  height: calc(var(--pixel) * 16);
+  font-size: calc(var(--pixel) * 6);
+  color: var(--brick-shadow);
+  background-color: var(--block-color);
+  border: var(--pixel) solid var(--block-shadow);
+  box-shadow: inset var(--pixel) var(--pixel) 0 var(--block-light);
+}
+
+/* Para que la barra de tiempo se vaya achicando */
+.progress-bar {
+  transition: width 1s linear;
+}
+.progress {
+  --bs-progress-height: calc(var(--pixel) * 7);
+  --bs-progress-font-size: calc(var(--pixel) * 4);
+}
+
+/* hago proporcionales de 15 para que no haya saltos raros */
+.time-0 { width: 0%; }
+.time-1 { width: calc(100% * 1 / 15); }
+.time-2 { width: calc(100% * 2 / 15); }
+.time-3 { width: calc(100% * 3 / 15); }
+.time-4 { width: calc(100% * 4 / 15); }
+.time-5 { width: calc(100% * 5 / 15); }
+.time-6 { width: calc(100% * 6 / 15); }
+.time-7 { width: calc(100% * 7 / 15); }
+.time-8 { width: calc(100% * 8 / 15); }
+.time-9 { width: calc(100% * 9 / 15); }
+.time-10 { width: calc(100% * 10 / 15); }
+.time-11 { width: calc(100% * 11 / 15); }
+.time-12 { width: calc(100% * 12 / 15); }
+.time-13 { width: calc(100% * 13 / 15); }
+.time-14 { width: calc(100% * 14 / 15); }
+.time-15 { width: 100%; }

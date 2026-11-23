@@ -11,6 +11,8 @@ import Rules from "./components/Rules";
 import { useGuide } from "./hooks/useGuide";
 import Background from "./components/Background";
 import Footer from "./components/Footer";
+import GameMessage from "./components/GameMessage";
+import TimeBar from "./components/TimeBar";
 
 const App = () => {
   const [word, setWord] = useState("");
@@ -29,6 +31,7 @@ const App = () => {
     playAgain,
     isScoreSaved,
     markScoreSaved,
+    isTimerRunning
   } = useGame();
   const { entries, qualifies, addScore } = useRanking();
   const { isGuideOpen, openGuide, closeGuide } = useGuide();
@@ -83,7 +86,8 @@ const App = () => {
             onWordChange={setWord}
             onSubmit={handleSubmit}
           />
-          <p>{message}</p>
+          <GameMessage message={message} />
+          <TimeBar secondsLeft={secondsLeft} isRunning={isTimerRunning} />
         </div>
         <ChainedWords wordsList={wordsList} />
         {isRankingOpen && (

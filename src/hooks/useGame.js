@@ -42,13 +42,19 @@ const loadScoreSaved = () => {
 
 export const useGame = () => {
   const [wordsList, setWordsList] = useState(loadChain);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ text: "", type: "info" });
   const [isChecking, setIsChecking] = useState(false);
   const [isGameOver, setIsGameOver] = useState(loadGameOver);
   const [isScoreSaved, setIsScoreSaved] = useState(loadScoreSaved);
+
+  const showError = (text) => setMessage({ text, type: "error" });
+  const showSuccess = (text) => setMessage({ text, type: "success" });
+  const showInfo = (text) => setMessage({ text, type: "info" });
+  const clearMessage = () => setMessage({ text: "", type: "info" });
+
   const timer = useTimer(() => {
     setIsGameOver(true);
-    setMessage("");
+    clearMessage();
   });
 
   const score = wordsList.reduce((total, p) => total + p.normalized.length, 0);
@@ -80,44 +86,49 @@ export const useGame = () => {
     }
   }, [isScoreSaved]);
 
+  useEffect(() => {
+    if (message.text === "" || message.type === "info") return;
+
+    const id = setTimeout(clearMessage, 4000);
+    return () => clearTimeout(id);
+  }, [message]);
+
   const submitWord = async (word) => {
     if (isChecking || isGameOver) return false;
 
-    setMessage("");
+    clearMessage();
     const normalize = normalizeWord(word);
 
     if (isEmpty(normalize)) {
-      setMessage(
-        `Escribí una palabra${wordCount === 0 ? " para iniciar la partida" : ""}`,
-      );
+      showError(`Escribí una palabra${wordCount === 0 ? " para iniciar la partida" : ""}`);
       return false;
     }
 
     if (!isSingleWord(normalize)) {
-      setMessage("Una sola palabra por vez");
+      showError("Una sola palabra por vez");
       return false;
     }
 
     if (!hasOnlyLetters(normalize)) {
-      setMessage("Se aceptan solo letras");
+      showError("Se aceptan solo letras");
       return false;
     }
 
     if (!isValidLength(normalize)) {
-      setMessage("Esa letra sola no es una palabra");
+      showError("Esa letra sola no es una palabra");
       return false;
     }
 
     if (!isChained(normalize, wordsList.at(-1)?.normalized)) {
-      setMessage(`La palabra debe iniciar con "${nextLetter}"`);
+      showError(`La palabra debe iniciar con "${nextLetter}"`);
       return false;
     }
 
     if (repeatedWord(normalize, wordsList)) {
-      setMessage("Esa palabra ya la usaste");
+      showError("Esa palabra ya la usaste");
       return false;
     }
-    setMessage("Verificando tu palabra");
+    showInfo("Verificando tu palabra");
     setIsChecking(true);
 
     timer.pause();
@@ -125,21 +136,18 @@ export const useGame = () => {
     return validateWord(normalize)
       .then((res) => {
         if (res.data.exists) {
-          setWordsList((prev) => [
-            ...prev,
-            { text: word.trim(), normalized: normalize },
-          ]);
-          setMessage(`¡Bien! +${normalize.length}`);
+          setWordsList((prev) => [...prev, { text: word.trim(), normalized: normalize }]);
+          showSuccess(`¡Bien! +${normalize.length}`);
           timer.restart();
         } else {
-          setMessage("No encontramos esa palabra");
+          showError("No encontramos esa palabra");
           timer.resume();
         }
 
         return true;
       })
       .catch(() => {
-        setMessage("Algo salió mal. Probá de nuevo");
+        showError("Algo salió mal. Probá de nuevo");
         timer.resume();
 
         return false;
@@ -151,7 +159,7 @@ export const useGame = () => {
     setWordsList([]);
     setIsGameOver(false);
     setIsScoreSaved(false);
-    setMessage("");
+    clearMessage();
     timer.reset();
   };
 
@@ -168,5 +176,6 @@ export const useGame = () => {
     playAgain,
     isScoreSaved,
     markScoreSaved: () => setIsScoreSaved(true),
+    isTimerRunning: timer.isRunning,
   };
 };

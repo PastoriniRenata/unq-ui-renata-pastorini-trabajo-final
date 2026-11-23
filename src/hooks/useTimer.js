@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const TURN_SECONDS = 15;
+export const TURN_SECONDS = 15;
 
 const DEADLINE_STORAGE_KEY = "palabras-encadenadas-fin";
 
@@ -24,7 +24,7 @@ export const useTimer = (onExpire) => {
   const [savedDeadline] = useState(loadDeadline);
   const [secondsLeft, setSecondsLeft] = useState(() =>
     savedDeadline
-      ? Math.max(0, Math.ceil((savedDeadline - Date.now()) / 1000))
+      ? Math.max(0, Math.ceil((savedDeadline - Date.now()) / 100))
       : TURN_SECONDS,
   );
   const [isRunning, setIsRunning] = useState(savedDeadline > 0);
