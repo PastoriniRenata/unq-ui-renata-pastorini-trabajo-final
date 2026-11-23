@@ -1,6 +1,6 @@
 const MetricsBar = ({ wordCount, score, bestScore, onShowRanking, onShowGuide }) => {
   return (
-    <header className="d-flex flex-wrap align-items-center  gap-2 gap-sm-4 px-3 py-2 font-pixel text-white text-outline">
+    <header className="d-flex flex-wrap align-items-center gap-2 gap-sm-4 px-3 py-2 font-pixel text-white text-outline">
       <div>
         <span className="d-block small">PUNTAJE</span>
         {String(score).padStart(6, "0")}

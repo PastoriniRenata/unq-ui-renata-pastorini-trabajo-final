@@ -24,6 +24,7 @@ const WordInput = ({ word, nextLetter, isChecking, inputRef, onWordChange, onSub
               }
               autoFocus
               ref={inputRef}
+              autoComplete="off"
               onChange={(e) => onWordChange(e.target.value)}
               readOnly={isChecking}
             />

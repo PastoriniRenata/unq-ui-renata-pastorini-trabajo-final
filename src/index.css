@@ -51,7 +51,7 @@
   left: 28px;
   top: -26px;
   width: 66px;
-  height: 26px;
+  height: 32px;
   background-color: var(--cloud-color);
   border: 3px solid var(--outline);
   border-bottom: 0;
@@ -204,4 +204,5 @@
     0 calc(var(--pixel) * -0.5) var(--outline),
     0 calc(var(--pixel) * 0.5) var(--outline);
 }
+
 
