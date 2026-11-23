@@ -24,7 +24,7 @@ export const useTimer = (onExpire) => {
   const [savedDeadline] = useState(loadDeadline);
   const [secondsLeft, setSecondsLeft] = useState(() =>
     savedDeadline
-      ? Math.max(0, Math.ceil((savedDeadline - Date.now()) / 100))
+      ? Math.max(0, Math.ceil((savedDeadline - Date.now()) / 1000))
       : TURN_SECONDS,
   );
   const [isRunning, setIsRunning] = useState(savedDeadline > 0);
@@ -45,7 +45,7 @@ export const useTimer = (onExpire) => {
       } else {
         setSecondsLeft(Math.ceil(msLeft / 1000));
       }
-    }, 200);
+    }, 100);
 
     return () => clearInterval(id);
   }, [isRunning]);
