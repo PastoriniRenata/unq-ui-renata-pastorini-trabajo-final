@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { useGame } from "./hooks/useGame";
+import MetricsBar from "./components/MetricsBar";
 
-function App() {
+const App = () => {
   const [word, setWord] = useState("");
   const inputRef = useRef(null);
   const {
@@ -33,15 +34,23 @@ function App() {
   return (
     <div>
       <h1 className="font-pixel">Palabras Encadenadas</h1>
-      <p> Puntaje: {score}</p>
-      <p> Palabras: {wordCount} </p>
-      <p>Tiempo: {secondsLeft}</p>
+ 
+      <MetricsBar
+        wordCount={wordCount}
+        score={score}
+        secondsLeft={secondsLeft}
+      />
+    
       {isGameOver ? (
         <div>
           <h2>Fin de la partida</h2>
           <p>Puntaje final: {score}</p>
           <p>Palabras encadenadas: {wordCount}</p>
-          <button className="btn btn-success" type="button" onClick={handlePlayAgain}>
+          <button
+            className="btn btn-success"
+            type="button"
+            onClick={handlePlayAgain}
+          >
             Jugar de nuevo
           </button>
         </div>
@@ -64,15 +73,21 @@ function App() {
             ref={inputRef}
             onChange={(e) => setWord(e.target.value)}
           />
-          <button className="btn btn-success" type="submit" disabled={isChecking}>
+          <button
+            className="btn btn-success"
+            type="submit"
+            disabled={isChecking}
+          >
             {isChecking ? "Verificando…" : "Enviar"}
           </button>
         </form>
       )}
+
       <p>{message}</p>
       {wordsList.toReversed().map((p) => (
         <p key={p.normalized}>{` --> ${p.text} --> +${p.normalized.length}`}</p>
       ))}
+    
     </div>
   );
 }
