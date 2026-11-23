@@ -27,6 +27,7 @@
 
 .font-pixel {
   font-family: "Jersey 10", monospace;
+  font-size-adjust: 0.6;
 }
 
 .floor {
