@@ -25,6 +25,10 @@ const WordInput = ({ word, nextLetter, isChecking, inputRef, onWordChange, onSub
               autoFocus
               ref={inputRef}
               autoComplete="off"
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
+              enterKeyHint="send"
               onChange={(e) => onWordChange(e.target.value)}
               readOnly={isChecking}
             />
