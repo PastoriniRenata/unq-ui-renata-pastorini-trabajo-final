@@ -23,14 +23,17 @@ const saveDeadline = (deadline) => {
 export const useTimer = (onExpire) => {
   const [savedDeadline] = useState(loadDeadline);
   const [secondsLeft, setSecondsLeft] = useState(() =>
-    savedDeadline
-      ? Math.max(0, Math.ceil((savedDeadline - Date.now()) / 1000))
-      : TURN_SECONDS,
+    savedDeadline ? Math.max(0, Math.ceil((savedDeadline - Date.now()) / 1000)) : TURN_SECONDS
   );
   const [isRunning, setIsRunning] = useState(savedDeadline > 0);
   const deadlineRef = useRef(savedDeadline);
   const remainingRef = useRef(0);
   const wasRunningRef = useRef(false);
+  const onExpireRef = useRef(onExpire);
+
+  useEffect(() => {
+    onExpireRef.current = onExpire;
+  });
 
   useEffect(() => {
     if (!isRunning) return;
@@ -41,7 +44,7 @@ export const useTimer = (onExpire) => {
         setSecondsLeft(0);
         setIsRunning(false);
         saveDeadline(0);
-        onExpire();
+        onExpireRef.current();
       } else {
         setSecondsLeft(Math.ceil(msLeft / 1000));
       }

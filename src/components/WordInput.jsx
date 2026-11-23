@@ -2,7 +2,7 @@ const WordInput = ({ word, nextLetter, isChecking, inputRef, onWordChange, onSub
   return (
     <div>
       <form onSubmit={onSubmit} className="d-flex align-items-center gap-3 p-3">
-        <div className="question-block font-pixel" aria-hidden="true">
+        <div className="question-block font-pixel d-flex align-items-center justify-content-center flex-shrink-0" aria-hidden="true">
           {nextLetter ? nextLetter.toUpperCase() : "?"}
         </div>
         <div className="flex-grow-1">

@@ -31,7 +31,7 @@ const App = () => {
     playAgain,
     isScoreSaved,
     markScoreSaved,
-    isTimerRunning
+    isTimerRunning,
   } = useGame();
   const { entries, qualifies, addScore } = useRanking();
   const { isGuideOpen, openGuide, closeGuide } = useGuide();
@@ -65,31 +65,37 @@ const App = () => {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column min-vh-100 bg-opacity-100">
       <Background />
       <main className="flex-grow-1 pb-5">
-        <h1 className="font-pixel">Palabras Encadenadas</h1>
-        <div>
-          <MetricsBar
-            wordCount={wordCount}
-            score={score}
-            secondsLeft={secondsLeft}
-            onShowRanking={() => setIsRankingOpen(true)}
-            onShowGuide={openGuide}
-          />
+        <h1 className="font-pixel text-outline text-white text-center my-4">
+          Palabras Encadenadas
+        </h1>
+        <MetricsBar
+          wordCount={wordCount}
+          score={score}
+          onShowRanking={() => setIsRankingOpen(true)}
+          onShowGuide={openGuide}
+        />
+        <div className="row g-3 mx-0">
+          <div className="col-lg-8">
+            <WordInput
+              word={word}
+              nextLetter={nextLetter}
+              isChecking={isChecking}
+              inputRef={inputRef}
+              onWordChange={setWord}
+              onSubmit={handleSubmit}
+            />
+            <GameMessage message={message} />
+            <TimeBar secondsLeft={secondsLeft} isRunning={isTimerRunning} />
+            <ChainedWords wordsList={wordsList} />
+          </div>
 
-          <WordInput
-            word={word}
-            nextLetter={nextLetter}
-            isChecking={isChecking}
-            inputRef={inputRef}
-            onWordChange={setWord}
-            onSubmit={handleSubmit}
-          />
-          <GameMessage message={message} />
-          <TimeBar secondsLeft={secondsLeft} isRunning={isTimerRunning} />
+          <aside className="col-lg-3 ms-auto">
+            <Ranking entries={entries} />
+          </aside>
         </div>
-        <ChainedWords wordsList={wordsList} />
         {isRankingOpen && (
           <Modal title="Ranking" onClose={handleCloseRanking}>
             <Ranking entries={entries} />
