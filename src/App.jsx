@@ -35,6 +35,7 @@ const App = () => {
   } = useGame();
   const { entries, qualifies, addScore } = useRanking();
   const { isGuideOpen, openGuide, closeGuide } = useGuide();
+  const bestScore = entries[0]?.score ?? 0;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -76,6 +77,7 @@ const App = () => {
           score={score}
           onShowRanking={() => setIsRankingOpen(true)}
           onShowGuide={openGuide}
+          bestScore={bestScore}
         />
         <div className="row g-3 mx-0">
           <div className="col-lg-8">
